@@ -6,13 +6,13 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-**A powerful, privacy-first converter for transforming data between JSON, TOON, CSV, YAML, TOML, and XML formats.**
+**A privacy-first converter for transforming data between JSON, TOON, TONL, CSV, YAML, TOML, XML and Protobuf, with a free API and MCP server.**
 
 > [!IMPORTANT]
 > **This repository serves as the official bug tracker for the [JSON to TOON Service](https://json2toon.co).**
 > Please report any issues you encounter with the service here.
 
-[Go to Service](https://json2toon.co) • [Documentation](https://json2toon.co/docs) • [Report Bug](https://github.com/karta9821/jsontotoon/issues/new?template=bug_report.md) • [Changelog](https://json2toon.co/changelog)
+[Go to Service](https://json2toon.co) • [Documentation](https://json2toon.co/docs) • [MCP Server](https://json2toon.co/mcp) • [Report Bug](https://github.com/karta9821/jsontotoon/issues/new?template=bug_report.md) • [Changelog](https://json2toon.co/changelog)
 
 </div>
 
@@ -26,7 +26,7 @@
 
 In the world of LLMs, context window space is precious and expensive. Standard JSON is verbose and token-heavy. TOON solves this by:
 
-- ✅ **Reducing Token Usage**: typically saves **20-60%** of tokens compared to JSON.
+- ✅ **Reducing Token Usage**: about **43% fewer tokens** than JSON on average (42.6% in the [official TOON benchmark](https://toonformat.dev/guide/benchmarks)), from ~33% on mixed/nested data to ~59% on flat tables.
 - ✅ **Enhancing Readability**: Cleaner syntax that is easier for both humans and models to parse.
 - ✅ **Preserving Structure**: Maintains full data fidelity and typing.
 - ✅ **Cost Efficiency**: Lower token counts mean cheaper API calls (OpenAI, Anthropic, etc.).
@@ -36,7 +36,7 @@ In the world of LLMs, context window space is precious and expensive. Standard J
 ## ✨ Features
 
 ### 🔄 Universal Conversion & Batch Processing
-- **6 Supported Formats**: JSON, TOON, YAML, TOML, CSV, XML.
+- **8 Supported Formats**: JSON, TOON, TONL, YAML, TOML, CSV, XML, Protobuf.
 - **Bidirectional**: Convert from any format to any format instantly.
 - **Batch Mode**: Drag & drop multiple files to convert them all at once.
 - **Auto-Detection**: Smart format detection for pasted content.
@@ -79,7 +79,7 @@ For developers needing programmatic access, we provide a robust API.
 
 Convert content to TOON format.
 
-**Rate Limit**: 10 requests per minute.
+Free, no API key.
 
 #### Request Body
 ```json
@@ -102,6 +102,24 @@ Convert content to TOON format.
 Returns the converted TOON string.
 ```text
 key: value
+```
+
+---
+
+## 🤖 MCP Server
+
+json2toon is a remote MCP server (Streamable HTTP, no auth), listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/) as `io.github.karta9821/json2toon`.
+
+- **URL**: `https://json2toon.co/api/mcp`
+- **Tools**: `json_to_toon` (JSON → TOON, optional `delimiter`: comma, tab or pipe) and `toon_to_json` (TOON → pretty-printed JSON)
+- **Setup guides** for Claude, ChatGPT and Cursor: [json2toon.co/mcp](https://json2toon.co/mcp)
+
+```json
+{
+  "mcpServers": {
+    "json2toon": { "url": "https://json2toon.co/api/mcp" }
+  }
+}
 ```
 
 ---
